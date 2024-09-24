@@ -1,0 +1,88 @@
+<section class="wizard container mt-5">
+  <div class="row">
+    <ul class="wizard-steps-header col-4">
+      <li #headerStepOne class="active-header-step">
+        <div class="circle">
+          <span>1</span>
+        </div>
+        <h5>البيانات الأساسية</h5>
+      </li>
+      <li #headerStepTwo class="">
+        <div class="circle">
+          <span>2</span>
+        </div>
+        <h5>بيانات المتطوعين</h5>
+      </li>
+      <li #headerStepThree>
+        <div class="circle"><span>3</span></div>
+        <h5>بيانات المستفيدين</h5>
+      </li>
+      <li #headerStepFour>
+        <div class="circle"><span>4</span></div>
+        <h5>نموذج تقديم طلب المستفيد</h5>
+      </li>
+      <li #headerStepFive>
+        <div class="circle"><span>5</span></div>
+        <h5>الوقت</h5>
+      </li>
+      <li #headerStepSix>
+        <div class="circle"><span>6</span></div>
+        <h5>المشاركة</h5>
+      </li>
+    </ul>
+    <div class="wizard-content col-8">
+      <div class="card">
+        <div class="card-body row justify-content-evenly">
+          <section #stepOne class="wizard-step active-step">
+            <app-work-shop-main-data
+              (removeClasses)="removeClasses()"
+              (activeStepTwo)="putActiveClass($event)"
+            ></app-work-shop-main-data>
+          </section>
+          <section #stepTwo class="wizard-step next-step">
+            <app-work-shop-vol-data
+              (removeClasses)="removeClasses()"
+              (activeStepThree)="putActiveClass($event)"
+              (backToPrevStep)="goBack()"
+            >
+            </app-work-shop-vol-data>
+          </section>
+          <section #stepThree class="wizard-step next-step">
+            <app-work-shop-beneficiary-data
+              (removeClasses)="removeClasses()"
+              (activeStepFour)="putActiveClass($event)"
+              (backToPrevStep)="goBack()"
+            ></app-work-shop-beneficiary-data>
+          </section>
+          <section #stepFour class="wizard-step next-step">
+            <app-work-shop-survay-questions
+              (removeClasses)="removeClasses()"
+              (activeStepFive)="putActiveClass($event)"
+              (backToPrevStep)="goBack()"
+            ></app-work-shop-survay-questions>
+          </section>
+          <section #stepFive class="wizard-step next-step">
+            <app-work-shop-time
+              (removeClasses)="removeClasses()"
+              (activeStepSix)="putActiveClass($event)"
+              (backToPrevStep)="goBack()"
+            ></app-work-shop-time>
+          </section>
+          <section #stepSix class="wizard-step next-step">
+            <app-work-shop-participation
+              (removeClasses)="removeClasses()"
+              (backToPrevStep)="goBack()"
+            ></app-work-shop-participation>
+          </section>
+        </div>
+      </div>
+    </div>
+    <app-cancel-modal
+      class="modal fade"
+      id="cancelModal"
+      tabindex="-1"
+      aria-labelledby="cancelModalLabel"
+      aria-hidden="true"
+    ></app-cancel-modal>
+  </div>
+</section>

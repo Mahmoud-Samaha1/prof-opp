@@ -1,0 +1,520 @@
+<div class="form-wrapper">
+  <div class="text-center">
+    <h4>الفترات</h4>
+    <small> يجب أن لا تزيد مدة جميع الأستشارات الفردية عن 3 ساعات </small>
+  </div>
+  <form
+    class="row text-start"
+    [formGroup]="timeDataForm"
+    (ngSubmit)="timeDataSend()"
+  >
+    <div class="my-3 col-6 oppDaysNumber">
+      <label for="oppDaysNumber" class="form-label mb-2"
+        >عدد ايام الفرصة
+      </label>
+      <div class="mb-3">
+        <select
+          class="form-select"
+          name="oppDaysNumber"
+          id="oppDaysNumber"
+          formControlName="oppDaysNumber"
+          [class.is-invalid]="
+            oppDaysNumber?.invalid &&
+            oppDaysNumber?.touched &&
+            oppDaysNumber?.value == ''
+          "
+          [class.is-valid]="oppDaysNumber?.valid && oppDaysNumber?.value != ''"
+        >
+          <option
+            value="{{ option }}"
+            *ngFor="let option of oppDaysNumberList; let i = index"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <small
+        *ngIf="oppDaysNumber?.errors?.['required'] && oppDaysNumber?.touched && oppDaysNumber?.value == ''"
+        id=""
+        class="form-text text-danger mt-1"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    <div formArrayName="sessions" class="col-12">
+      <form
+        *ngFor="let session of sessions.controls; let i = index"
+        [formGroupName]="i"
+        class="row position-relative questionForm mt-3"
+      >
+        <div
+          *ngIf="oppDaysNumber?.value >= 1"
+          formGroupName="sessionOne"
+          class="my-3 col-12 row sessionOne"
+        >
+          <div class="my-3 col-4 sessionOneDay">
+            <div class="mb-3">
+              <label for="day" class="form-label mb-2">اليوم </label>
+              <input
+                class="form-control"
+                name="day"
+                id="day"
+                type="date"
+                placeholder=""
+                formControlName="day"
+                [class.is-invalid]="
+                  sessionOneDay?.invalid &&
+                  sessionOneDay?.touched &&
+                  sessionOneDay?.value == ''
+                "
+                [class.is-valid]="
+                  sessionOneDay?.valid && sessionOneDay?.value != ''
+                "
+              />
+            </div>
+            <small
+              id=""
+              class="form-text text-danger mt-1"
+              *ngIf="sessionOneDay?.errors?.['required'] && sessionOneDay?.touched && sessionOneDay?.value == ''"
+              >{{ "ValidationMsgs.mandatory" | translate }}</small
+            >
+          </div>
+          <div
+            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            formGroupName="timeFrom"
+          >
+            <label for="" class="form-label mb-2">المدة(من)</label>
+            <div class="mb-3 col-4 p-0">
+              <select
+                class="form-select"
+                name="AmOrPm"
+                id="AmOrPm"
+                formControlName="AmOrPm"
+                (change)="sessionOneHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of amOrPmList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3 col-6 p-0">
+              <select
+                class="form-select"
+                name="time"
+                id="time"
+                formControlName="time"
+                (change)="sessionOneHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of timeList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div
+            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            formGroupName="timeTo"
+          >
+            <label for="" class="form-label mb-2">المدة(إلى)</label>
+            <div class="mb-3 col-4 p-0">
+              <select
+                class="form-select"
+                name="AmOrPm"
+                id="AmOrPm"
+                formControlName="AmOrPm"
+                (change)="sessionOneHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of amOrPmList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3 col-6 p-0">
+              <select
+                class="form-select"
+                name="time"
+                id="time"
+                formControlName="time"
+                (change)="sessionOneHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of timeList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <p
+            *ngIf="
+              isSessionOneMoreThreeHours &&
+              sessionOneTimeFromAmOrPm.value != '' &&
+              sessionOneTimeToAmOrPm.value != '' &&
+              sessionOneTimeFromTime.value != '' &&
+              sessionOneTimeToTime.value != ''
+            "
+          >
+            يجب أن لا تزيد مدة جميع الأستشارات الفردية عن 3 ساعات
+          </p>
+          <p
+            *ngIf="
+              totalSessionOneHours > 0 &&
+              !isSessionOneMoreThreeHours &&
+              sessionOneTimeFromAmOrPm.value != '' &&
+              sessionOneTimeToAmOrPm.value != '' &&
+              sessionOneTimeFromTime.value != '' &&
+              sessionOneTimeToTime.value != ''
+            "
+          >
+            عدد الساعات <strong>{{ totalSessionOneHours }}</strong>
+          </p>
+          <p
+            *ngIf="
+              totalSessionOneHours < 0 &&
+              sessionOneTimeFromAmOrPm.value != '' &&
+              sessionOneTimeToAmOrPm.value != '' &&
+              sessionOneTimeFromTime.value != '' &&
+              sessionOneTimeToTime.value != ''
+            "
+          >
+            يجب ان تكون قيمة المدة(إلى) اكبر من المدة(من)
+          </p>
+        </div>
+
+        <div
+          *ngIf="oppDaysNumber?.value >= 2"
+          formGroupName="sessionTwo"
+          class="my-3 col-12 row sessionTwo"
+        >
+          <div class="my-3 col-4 sessionTwoDay">
+            <div class="mb-3">
+              <label for="day" class="form-label mb-2">اليوم </label>
+              <input
+                class="form-control"
+                name="day"
+                id="day"
+                type="date"
+                placeholder=""
+                formControlName="day"
+                [class.is-invalid]="
+                  sessionTwoDay?.invalid &&
+                  sessionTwoDay?.touched &&
+                  sessionTwoDay?.value == ''
+                "
+                [class.is-valid]="
+                  sessionTwoDay?.valid && sessionTwoDay?.value != ''
+                "
+              />
+            </div>
+            <small
+              id=""
+              class="form-text text-danger mt-1"
+              *ngIf="sessionTwoDay?.errors?.['required'] && sessionTwoDay?.touched && sessionTwoDay?.value == ''"
+              >{{ "ValidationMsgs.mandatory" | translate }}</small
+            >
+          </div>
+          <div
+            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            formGroupName="timeFrom"
+          >
+            <label for="" class="form-label mb-2">المدة(من)</label>
+            <div class="mb-3 col-4 p-0">
+              <select
+                class="form-select"
+                name="AmOrPm"
+                id="AmOrPm"
+                formControlName="AmOrPm"
+                (change)="sessionTwoHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of amOrPmList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3 col-6 p-0">
+              <select
+                class="form-select"
+                name="time"
+                id="time"
+                formControlName="time"
+                (change)="sessionTwoHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of timeList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div
+            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            formGroupName="timeTo"
+          >
+            <label for="" class="form-label mb-2">المدة(إلى)</label>
+            <div class="mb-3 col-4 p-0">
+              <select
+                class="form-select"
+                name="AmOrPm"
+                id="AmOrPm"
+                formControlName="AmOrPm"
+                (change)="sessionTwoHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of amOrPmList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3 col-6 p-0">
+              <select
+                class="form-select"
+                name="time"
+                id="time"
+                formControlName="time"
+                (change)="sessionTwoHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of timeList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <p
+            *ngIf="
+              isSessionTwoMoreThreeHours &&
+              sessionTwoTimeFromAmOrPm.value != '' &&
+              sessionTwoTimeToAmOrPm.value != '' &&
+              sessionTwoTimeFromTime.value != '' &&
+              sessionTwoTimeToTime.value != ''
+            "
+          >
+            يجب أن لا تزيد مدة جميع الأستشارات الفردية عن 3 ساعات
+          </p>
+          <p
+            *ngIf="
+              totalSessionTwoHours > 0 &&
+              !isSessionTwoMoreThreeHours &&
+              sessionTwoTimeFromAmOrPm.value != '' &&
+              sessionTwoTimeToAmOrPm.value != '' &&
+              sessionTwoTimeFromTime.value != '' &&
+              sessionTwoTimeToTime.value != ''
+            "
+          >
+            عدد الساعات <strong>{{ totalSessionTwoHours }}</strong>
+          </p>
+          <p
+            *ngIf="
+              totalSessionTwoHours < 0 &&
+              sessionTwoTimeFromAmOrPm.value != '' &&
+              sessionTwoTimeToAmOrPm.value != '' &&
+              sessionTwoTimeFromTime.value != '' &&
+              sessionTwoTimeToTime.value != ''
+            "
+          >
+            يجب ان تكون قيمة المدة(إلى) اكبر من المدة(من)
+          </p>
+        </div>
+
+        <div
+          *ngIf="oppDaysNumber?.value == 3"
+          formGroupName="sessionThree"
+          class="my-3 col-12 row sessionOne"
+        >
+          <div class="my-3 col-4 sessionThreeDay">
+            <div class="mb-3">
+              <label for="day" class="form-label mb-2">اليوم </label>
+              <input
+                class="form-control"
+                name="day"
+                id="day"
+                type="date"
+                placeholder=""
+                formControlName="day"
+                [class.is-invalid]="
+                  sessionThreeDay?.invalid &&
+                  sessionThreeDay?.touched &&
+                  sessionThreeDay?.value == ''
+                "
+                [class.is-valid]="
+                  sessionThreeDay?.valid && sessionThreeDay?.value != ''
+                "
+              />
+            </div>
+            <small
+              id=""
+              class="form-text text-danger mt-1"
+              *ngIf="sessionThreeDay?.errors?.['required'] && sessionThreeDay?.touched && sessionThreeDay?.value == ''"
+              >{{ "ValidationMsgs.mandatory" | translate }}</small
+            >
+          </div>
+          <div
+            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            formGroupName="timeFrom"
+          >
+            <label for="" class="form-label mb-2">المدة(من)</label>
+            <div class="mb-3 col-4 p-0">
+              <select
+                class="form-select"
+                name="AmOrPm"
+                id="AmOrPm"
+                formControlName="AmOrPm"
+                (change)="sessionThreeHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of amOrPmList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3 col-6 p-0">
+              <select
+                class="form-select"
+                name="time"
+                id="time"
+                formControlName="time"
+                (change)="sessionThreeHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of timeList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <div
+            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            formGroupName="timeTo"
+          >
+            <label for="" class="form-label mb-2">المدة(إلى)</label>
+            <div class="mb-3 col-4 p-0">
+              <select
+                class="form-select"
+                name="AmOrPm"
+                id="AmOrPm"
+                formControlName="AmOrPm"
+                (change)="sessionThreeHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of amOrPmList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+            <div class="mb-3 col-6 p-0">
+              <select
+                class="form-select"
+                name="time"
+                id="time"
+                formControlName="time"
+                (change)="sessionThreeHours()"
+              >
+                <option
+                  value="{{ option }}"
+                  *ngFor="let option of timeList; let i = index"
+                >
+                  {{ option }}
+                </option>
+              </select>
+            </div>
+          </div>
+          <p
+            *ngIf="
+              isSessionThreeMoreThreeHours &&
+              sessionThreeTimeFromAmOrPm.value != '' &&
+              sessionThreeTimeToAmOrPm.value != '' &&
+              sessionThreeTimeFromTime.value != '' &&
+              sessionThreeTimeToTime.value != ''
+            "
+          >
+            يجب أن لا تزيد مدة جميع الأستشارات الفردية عن 3 ساعات
+          </p>
+          <p
+            *ngIf="
+              totalSessionThreeHours > 0 &&
+              !isSessionThreeMoreThreeHours &&
+              sessionThreeTimeFromAmOrPm.value != '' &&
+              sessionThreeTimeToAmOrPm.value != '' &&
+              sessionThreeTimeFromTime.value != '' &&
+              sessionThreeTimeToTime.value != ''
+            "
+          >
+            عدد الساعات <strong>{{ totalSessionThreeHours }}</strong>
+          </p>
+          <p
+            *ngIf="
+              totalSessionThreeHours < 0 &&
+              sessionThreeTimeFromAmOrPm.value != '' &&
+              sessionThreeTimeToAmOrPm.value != '' &&
+              sessionThreeTimeFromTime.value != '' &&
+              sessionThreeTimeToTime.value != ''
+            "
+          >
+            يجب ان تكون قيمة المدة(إلى) اكبر من المدة(من)
+          </p>
+        </div>
+      </form>
+    </div>
+  </form>
+
+  {{ timeDataForm.value | json }}
+
+  <!-- ====================================== -->
+  <div class="card-footer border-0 row">
+    <div class="row col-10">
+      <button
+        type="submit"
+        (click)="prevStep()"
+        class="btn col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        السابق
+      </button>
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#cancelModal"
+        class="btn btn-danger col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        إلغاء
+      </button>
+    </div>
+
+    <div class="col-2">
+      <button
+        type="submit"
+        (click)="
+          printForm();
+          nextStep();
+          removeClassesinParent();
+          sendDataToParticipation()
+        "
+        class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+      >
+        التالى
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,52 @@
+<div class="card container mt-5">
+  <div class="card-body">
+    <section class="search-bar row">
+      <div class="search-input col-10 row mb-3">
+        <input type="text" class="col-4 me-2" />
+        <button type="button" class="col-2 btn btn-primary">بحث</button>
+      </div>
+      <div class="add col-2">
+        <button type="button" class="btn btn-primary" routerLink="add">
+          إضافة
+        </button>
+      </div>
+    </section>
+    <section class="table-section">
+      <div class="table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">
+                <input type="checkbox" name="" id="" />
+              </th>
+              <th scope="col">مسمي الفرصة</th>
+              <th scope="col">نوع الفرصة</th>
+              <th scope="col">حالة الفرصة</th>
+              <th scope="col">حالة الإعتماد</th>
+              <th scope="col">التفعيل</th>
+              <th scope="col">الإجراء</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class=""
+              *ngFor="
+                let item of professionalOpportunitiesForCompanyData?.collection
+              "
+            >
+              <td>
+                <input type="checkbox" name="" id="" />
+              </td>
+              <td scope="row">{{ item?.oppertunityName }}</td>
+              <td scope="row">{{ item?.type }}</td>
+              <td scope="row">{{ item?.statusMasterCode }}</td>
+              <td scope="row">{{ item?.timeStatusMasterCode }}</td>
+              <td scope="row">{{ item?.isActive }}</td>
+              <td scope="row">{{ item?.oppertunityName }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+</div>

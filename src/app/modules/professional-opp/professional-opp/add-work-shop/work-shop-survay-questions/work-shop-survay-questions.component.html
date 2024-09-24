@@ -1,0 +1,252 @@
+<div class="form-wrapper">
+  <p>إضافة اسئلة للأستبيان</p>
+  <small>الحد الأقصي للأسئلة : 12 سؤال</small>
+  <form
+    class="row text-start"
+    [formGroup]="survayQuestionsDataForm"
+    (ngSubmit)="survayQuestionsDataSend()"
+  >
+    <div formArrayName="quistions">
+      <form
+        *ngFor="let quistion of quistions.controls; let i = index"
+        [formGroupName]="i"
+        class="row position-relative questionForm mt-3"
+      >
+        <button
+          (click)="removeQuestion(i)"
+          type="button"
+          class="btn remove-btn btn-danger w-25 position-absolute d-flex justify-content-center align-items-center"
+        >
+          <span class="material-symbols-outlined"> delete </span>
+          حذف السؤال
+        </button>
+        <div class="my-3 col-6 answerType">
+          <label for="answerType{{ i }}" class="form-label mb-2"
+            >نوع الإجابات</label
+          >
+          <div class="mb-3">
+            <select
+              class="form-select"
+              name="answerType{{ i }}"
+              id="answerType{{ i }}"
+              formControlName="answerType"
+              [class.is-invalid]="
+                quistion.get('answerType')?.invalid &&
+                quistion.get('answerType')?.touched &&
+                quistion.get('answerType')?.value == ''
+              "
+              [class.is-valid]="
+                quistion.get('answerType')?.valid &&
+                quistion.get('answerType')?.value != ''
+              "
+            >
+              <option value="">اختر</option>
+              <option
+                value="{{ option }}"
+                *ngFor="let option of quistionsTypeList; let i = index"
+              >
+                {{ option }}
+              </option>
+            </select>
+          </div>
+          <small
+            id=""
+            class="form-text text-danger mt-1"
+            *ngIf="quistion.get('answerType')?.errors?.['required'] && quistion.get('answerType')?.touched && quistion.get('answerType')?.value == ''"
+            >{{ "ValidationMsgs.mandatory" | translate }}</small
+          >
+        </div>
+        <div class="my-3 col-6 TheQuistion">
+          <label for="TheQuistion{{ i }}" class="form-label mb-2">السؤال</label>
+          <div class="mb-3">
+            <input
+              class="form-control"
+              name="TheQuistion{{ i }}"
+              id="TheQuistion{{ i }}"
+              type="text"
+              formControlName="TheQuistion"
+              [class.is-invalid]="
+                quistion.get('TheQuistion')?.invalid &&
+                quistion.get('TheQuistion')?.touched &&
+                quistion.get('TheQuistion')?.value == ''
+              "
+              [class.is-valid]="
+                quistion.get('TheQuistion')?.valid &&
+                quistion.get('TheQuistion')?.value != ''
+              "
+            />
+          </div>
+          <small
+            id=""
+            class="form-text text-danger mt-1"
+            *ngIf="quistion.get('TheQuistion')?.errors?.['required'] && quistion.get('TheQuistion')?.touched && quistion.get('TheQuistion')?.value == ''"
+            >{{ "ValidationMsgs.mandatory" | translate }}</small
+          >
+        </div>
+        <div
+          *ngIf="
+            quistion.get('answerType')?.value == quistionsTypeList[0] ||
+            quistion.get('answerType')?.value == quistionsTypeList[1]
+          "
+          class="my-3 col-12 row answerDetails"
+          formArrayName="answerDetails"
+        >
+          <form
+            *ngFor="let answer of answerDetails(i).controls; let j = index"
+            [formGroupName]="j"
+            class="row"
+          >
+            <div class="my-3 col-6 answerOne">
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  name="answerOne"
+                  id="answerOne"
+                  type="text"
+                  placeholder="إجابة#1"
+                  formControlName="answerOne"
+                  [class.is-invalid]="
+                    answer.get('answerOne')?.invalid &&
+                    answer.get('answerOne')?.touched &&
+                    answer.get('answerOne')?.value == ''
+                  "
+                  [class.is-valid]="
+                    answer.get('answerOne')?.valid &&
+                    answer.get('answerOne')?.value != ''
+                  "
+                />
+              </div>
+              <small
+                id=""
+                class="form-text text-danger mt-1"
+                *ngIf="answer.get('answerOne')?.errors?.['required'] && answer.get('answerOne')?.touched && answer.get('answerOne')?.value == ''"
+                >{{ "ValidationMsgs.mandatory" | translate }}</small
+              >
+            </div>
+            <div class="my-3 col-6 answerTwo">
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  name="answerTwo"
+                  id="answerTwo"
+                  type="text"
+                  placeholder="إجابة#2"
+                  formControlName="answerTwo"
+                  [class.is-invalid]="
+                    answer.get('answerTwo')?.invalid &&
+                    answer.get('answerTwo')?.touched &&
+                    answer.get('answerTwo')?.value == ''
+                  "
+                  [class.is-valid]="
+                    answer.get('answerTwo')?.valid &&
+                    answer.get('answerTwo')?.value != ''
+                  "
+                />
+              </div>
+              <small
+                id=""
+                class="form-text text-danger mt-1"
+                *ngIf="answer.get('answerTwo')?.errors?.['required'] && answer.get('answerTwo')?.touched && answer.get('answerTwo')?.value == ''"
+                >{{ "ValidationMsgs.mandatory" | translate }}</small
+              >
+            </div>
+            <div class="my-3 col-6 answerThree">
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  name="answerThree"
+                  id="answerThree"
+                  type="text"
+                  placeholder="إجابة#3"
+                  formControlName="answerThree"
+                  [class.is-invalid]="
+                    answer.get('answerThree')?.invalid &&
+                    answer.get('answerThree')?.touched &&
+                    answer.get('answerThree')?.value == ''
+                  "
+                  [class.is-valid]="
+                    answer.get('answerThree')?.valid &&
+                    answer.get('answerThree')?.value != ''
+                  "
+                />
+              </div>
+              <small
+                id=""
+                class="form-text text-danger mt-1"
+                *ngIf="answer.get('answerThree')?.errors?.['required'] && answer.get('answerThree')?.touched && answer.get('answerThree')?.value == ''"
+                >{{ "ValidationMsgs.mandatory" | translate }}</small
+              >
+            </div>
+            <div class="my-3 col-6 answerFour">
+              <div class="mb-3">
+                <input
+                  class="form-control"
+                  name="answerFour"
+                  id="answerFour"
+                  type="text"
+                  placeholder="إجابة#4"
+                  formControlName="answerFour"
+                  [class.is-invalid]="
+                    answer.get('answerFour')?.invalid &&
+                    answer.get('answerFour')?.touched &&
+                    answer.get('answerFour')?.value == ''
+                  "
+                  [class.is-valid]="
+                    answer.get('answerFour')?.valid &&
+                    answer.get('answerFour')?.value != ''
+                  "
+                />
+              </div>
+              <small
+                id=""
+                class="form-text text-danger mt-1"
+                *ngIf="answer.get('answerFour')?.errors?.['required'] && answer.get('answerFour')?.touched && answer.get('answerFour')?.value == ''"
+                >{{ "ValidationMsgs.mandatory" | translate }}</small
+              >
+            </div>
+          </form>
+        </div>
+      </form>
+      <button
+        (click)="addQuistion()"
+        type="button"
+        class="btn btn-light mt-4 w-100 d-flex flex-column justify-content-center align-items-center"
+      >
+        <span class="material-symbols-outlined"> add_circle </span>
+        إضافة سؤال جديد
+      </button>
+    </div>
+  </form>
+
+  {{ survayQuestionsDataForm.value | json }}
+
+  <!-- ====================================== -->
+  <div class="card-footer border-0 row">
+    <div class="row col-10">
+      <button
+        type="submit"
+        (click)="prevStep()"
+        class="btn col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        السابق
+      </button>
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#cancelModal"
+        class="btn btn-danger col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        إلغاء
+      </button>
+    </div>
+
+    <div class="col-2">
+      <button
+        type="submit"
+        (click)="printForm(); nextStep(); removeClassesinParent()"
+        class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+      >
+        التالى
+      </button>
+    </div>
+  </div>
+</div>

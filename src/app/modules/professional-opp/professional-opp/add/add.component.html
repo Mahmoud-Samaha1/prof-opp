@@ -1,0 +1,90 @@
+<div class="card container mt-5">
+  <div class="card-header row">
+    <h4>اختر نوع الفرصة الأحترافية المراد إضافتها</h4>
+  </div>
+  <div class="card-body row justify-content-evenly">
+    <div
+      #oppType1
+      id="opp-type-1"
+      class="opp-type col-3"
+      (click)="chooseOpp1()"
+    >
+      <span class="material-symbols-outlined"> record_voice_over </span>
+      <h5>استشارة فردية</h5>
+    </div>
+    <div
+      #oppType2
+      id="opp-type-2"
+      class="opp-type col-3"
+      (click)="chooseOpp2()"
+    >
+      <span class="material-symbols-outlined"> campaign </span>
+      <h5>لقاء جماهيرى</h5>
+    </div>
+    <div
+      #oppType3
+      id="opp-type-3"
+      class="opp-type col-3"
+      (click)="chooseOpp3()"
+    >
+      <span class="material-symbols-outlined"> record_voice_over </span>
+      <h5>ورشة تدريبية</h5>
+    </div>
+  </div>
+  <div class="card-footer row justify-content-end">
+    <button
+      type="button"
+      class="col-2 btn btn-danger"
+      routerLink="professional-opp"
+    >
+      إلغاء
+    </button>
+    <button
+      #nextBtn
+      type="button"
+      class="col-2 mx-3 btn btn-primary disabled"
+      data-bs-toggle="modal"
+      data-bs-target="#addModal"
+    >
+      التالى
+    </button>
+    <!-- ===================== -->
+    <div
+      class="modal fade"
+      id="addModal"
+      tabindex="-1"
+      aria-labelledby="addModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="addModalLabel">
+              إقرأ الشروط والأحكام
+            </h1>
+          </div>
+          <div class="modal-body">
+            هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا
+            النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد
+            من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق. إذا
+            كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد
+            الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص
+            العربى مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل فى كثير
+            من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع.
+          </div>
+          <div class="modal-footer justify-content-center">
+            <button
+              type="button"
+              class="btn btn-primary"
+              data-bs-dismiss="modal"
+              routerLink="addWorkShop"
+            >
+              موافق
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ============================= -->

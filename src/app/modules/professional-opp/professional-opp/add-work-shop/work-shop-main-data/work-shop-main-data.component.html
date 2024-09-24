@@ -1,0 +1,216 @@
+<div class="form-wrapper">
+  <form
+    class="row text-start"
+    [formGroup]="wsMainDataForm"
+    (ngSubmit)="wsMainDataSend()"
+  >
+    <div class="my-3 col-6 oppName">
+      <label for="" class="form-label mb-2">مسمى الفرصة</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="oppName"
+        name="oppName"
+        id="oppName"
+        [class.is-invalid]="oppName?.invalid && oppName?.touched"
+        [class.is-valid]="oppName?.valid"
+      />
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="oppName?.errors?.['required'] && oppName?.touched"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    <div class="my-3 col-6 monthlyEconomicValue">
+      <label for="" class="form-label mb-2"
+        >قيمة المهمة الشهرية (ريال سعودي)
+      </label>
+      <div class="mb-3">
+        <input
+          type="number"
+          class="form-control"
+          formControlName="monthlyEconomicValue"
+          name="monthlyEconomicValue"
+          id="monthlyEconomicValue"
+          [class.is-invalid]="
+            monthlyEconomicValue?.invalid && monthlyEconomicValue?.touched
+          "
+          [class.is-valid]="monthlyEconomicValue?.valid"
+        />
+      </div>
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="monthlyEconomicValue?.errors?.['required'] && monthlyEconomicValue?.touched"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    <div class="my-3 col-6 oppField">
+      <label for="" class="form-label mb-2">مجال الفرصة</label>
+      <div class="mb-3">
+        <select
+          class="form-select"
+          name=""
+          id=""
+          formControlName="oppField"
+          [class.is-invalid]="
+            oppField?.invalid && oppField?.touched && oppField?.value == ''
+          "
+          [class.is-valid]="oppField?.valid && oppField?.value != ''"
+        >
+          <option value="">اختر</option>
+          <option
+            value="{{ option }}"
+            *ngFor="let option of oppFieldsList; let i = index"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="oppField?.errors?.['required'] && oppField?.touched && oppField?.value == ''"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+
+    <div class="my-3 col-6 isEnglishRequired">
+      <p>هل تتطلب الفرصة إجادة للغة الأنجليزية؟</p>
+      <div class="mb-3">
+        <input
+          type="radio"
+          class=""
+          formControlName="isEnglishRequired"
+          name="isEnglishRequired"
+          id="yes"
+          value="yes"
+        />
+        <label for="yes" class="form-label m-2">نعم </label>
+        <input
+          type="radio"
+          class="ms-3"
+          formControlName="isEnglishRequired"
+          name="isEnglishRequired"
+          id="no"
+          value="no"
+        />
+        <label for="no" class="form-label m-2">لا </label>
+      </div>
+    </div>
+    <div class="my-3 col-6 eventId">
+      <label for="" class="form-label mb-2">الفعاليات</label>
+      <div class="mb-3">
+        <select
+          class="form-select"
+          name=""
+          id=""
+          formControlName="eventId"
+          [class.is-invalid]="
+            eventId?.invalid && eventId?.touched && eventId?.value == ''
+          "
+          [class.is-valid]="eventId?.valid && eventId?.value != ''"
+        >
+          <option value="">اختر</option>
+          <option
+            value="{{ option }}"
+            *ngFor="let option of eventIdList; let i = index"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="eventId?.errors?.['required'] && eventId?.touched && eventId?.value == ''"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    <div class="my-3 col-6 initiativeId">
+      <label for="" class="form-label mb-2">المبادرات</label>
+      <div class="mb-3">
+        <select
+          class="form-select"
+          name=""
+          id=""
+          formControlName="initiativeId"
+          [class.is-invalid]="
+            initiativeId?.invalid &&
+            initiativeId?.touched &&
+            initiativeId?.value == ''
+          "
+          [class.is-valid]="initiativeId?.valid && initiativeId?.value != ''"
+        >
+          <option value="">اختر</option>
+          <option
+            value="{{ option }}"
+            *ngFor="let option of initiativeIdList; let i = index"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="initiativeId?.errors?.['required'] && initiativeId?.touched && initiativeId?.value == ''"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    <div class="my-3 col-12 opportunityResult">
+      <label for="" class="form-label mb-2">المخرجات النهائية للفرصة</label>
+      <textarea
+        class="form-control"
+        name=""
+        id=""
+        rows="3"
+        formControlName="opportunityResult"
+        name="opportunityResult"
+        id="opportunityResult"
+        [class.is-invalid]="
+          opportunityResult?.invalid && opportunityResult?.touched
+        "
+        [class.is-valid]="opportunityResult?.valid"
+      ></textarea>
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="opportunityResult?.errors?.['required'] && opportunityResult?.touched"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    {{ wsMainDataForm.value | json }}
+    <br />
+    {{ wsMainDataForm.status | json }}
+  </form>
+  <div class="card-footer border-0 row">
+    <div class="row col-10">
+      <button
+        (click)="prevStep()"
+        class="btn col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        السابق
+      </button>
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#cancelModal"
+        class="btn btn-danger col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        إلغاء
+      </button>
+    </div>
+
+    <div class="col-2">
+      <button
+        type="submit"
+        (click)="printForm(); nextStep(); removeClassesinParent()"
+        class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+      >
+        التالى
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ===================== -->

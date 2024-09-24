@@ -1,0 +1,190 @@
+<div class="form-wrapper">
+  <form
+    class="row text-start"
+    [formGroup]="workShopBeneficiaryDataForm"
+    (ngSubmit)="beneficiaryDataSend()"
+    enctype="multipart/form-data"
+  >
+    <div class="my-3 col-6 beneficiaryType">
+      <label for="beneficiaryType" class="form-label mb-2">نوع المستفيد</label>
+      <div class="mb-3">
+        <select
+          class="form-select"
+          name="beneficiaryType"
+          id="beneficiaryType"
+          formControlName="beneficiaryType"
+          [class.is-invalid]="
+            beneficiaryType?.invalid &&
+            beneficiaryType?.touched &&
+            beneficiaryType?.value == ''
+          "
+          [class.is-valid]="
+            beneficiaryType?.valid && beneficiaryType?.value != ''
+          "
+        >
+          <option value="">اختر</option>
+          <option
+            value="{{ option }}"
+            *ngFor="let option of beneficiaryTypeList; let i = index"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="beneficiaryType?.errors?.['required'] && beneficiaryType?.touched && beneficiaryType?.value == ''"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    <div class="my-3 col-6 gender">
+      <label for="gender" class="form-label mb-2">الجنس</label>
+      <div class="mb-3">
+        <select
+          class="form-select"
+          name="gender"
+          id="gender"
+          formControlName="gender"
+          [class.is-invalid]="
+            gender?.invalid && gender?.touched && gender?.value == ''
+          "
+          [class.is-valid]="gender?.valid && gender?.value != ''"
+        >
+          <option value="">اختر</option>
+          <option
+            value="{{ option }}"
+            *ngFor="let option of genderList; let i = index"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="gender?.errors?.['required'] && gender?.touched && gender?.value == ''"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    <div class="my-3 col-6 isPrintCertificate">
+      <p>هل تريد طباعة شهادة حضور المستفيدين؟</p>
+      <div class="mb-3">
+        <input
+          type="radio"
+          class=""
+          formControlName="isPrintCertificate"
+          name="isPrintCertificate"
+          id="yesPrintCertificate"
+          [value]="true"
+        />
+        <label for="yesPrintCertificate" class="form-label m-2">
+          {{ yes }}</label
+        >
+        <input
+          type="radio"
+          class="ms-3"
+          formControlName="isPrintCertificate"
+          name="isPrintCertificate"
+          id="noPrintCertificate"
+          [value]="false"
+        />
+        <label for="noPrintCertificate" class="form-label m-2">{{ no }}</label>
+      </div>
+    </div>
+    <div class="my-3 row col-6 uploadProfile">
+      <label for="" class="form-label mb-2 col-12">إضافة الملف التعريفى</label>
+      <div class="mb-3 col-12 d-flex justify-content-center">
+        <div class="position-relative w-100">
+          <input
+            type="file"
+            accept=".pdf"
+            class="form-control position-absolute bg-transparent opacity-0"
+            formControlName="uploadProfile"
+            name="uploadProfile"
+            id="uploadProfile"
+            (change)="onFileSelected($event)"
+            [class.is-invalid]="
+              uploadProfile?.invalid && uploadProfile?.touched
+            "
+            [class.is-valid]="uploadProfile?.valid"
+          />
+          <button
+            [disabled]="!selectedFile"
+            type="button"
+            class="btn bg-transparent position-absolute d-flex justify-content-center border-2 border-success w-100"
+          >
+            <span class="material-symbols-outlined"> upload </span>
+            <p class="m-0">رفع</p>
+          </button>
+        </div>
+      </div>
+      <div
+        class="documentContainer col-12 mt-5 d-flex justify-content-between"
+        *ngIf="fileName"
+      >
+        <span class="h-100 w-100 px-3">{{ fileName }}</span>
+        <button type="button" class="btn btn-danger" (click)="onDeleteFile()">
+          <span class="material-symbols-outlined"> delete </span>
+        </button>
+      </div>
+    </div>
+
+    <div class="my-3 col-6 numOfSeats">
+      <label for="" class="form-label mb-2">عدد المقاعد </label>
+      <div class="mb-3">
+        <input
+          type="number"
+          class="form-control"
+          formControlName="numOfSeats"
+          name="numOfSeats"
+          id="numOfSeats"
+          [class.is-invalid]="numOfSeats?.invalid && numOfSeats?.touched"
+          [class.is-valid]="numOfSeats?.valid"
+        />
+      </div>
+      <small
+        id=""
+        class="form-text text-danger mt-1"
+        *ngIf="numOfSeats?.errors?.['required'] && numOfSeats?.touched"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+  </form>
+
+  {{ workShopBeneficiaryDataForm.value | json }}
+
+  <div class="card-footer border-0 bg-transparent row">
+    <div class="row col-10">
+      <button
+        type="submit"
+        (click)="prevStep()"
+        class="btn col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        السابق
+      </button>
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#cancelModal"
+        class="btn btn-danger col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        إلغاء
+      </button>
+    </div>
+
+    <div class="col-2">
+      <button
+        type="submit"
+        (click)="
+          printForm();
+          nextStep();
+          removeClassesinParent();
+          beneficiaryDataSend()
+        "
+        class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+      >
+        التالى
+      </button>
+    </div>
+  </div>
+</div>

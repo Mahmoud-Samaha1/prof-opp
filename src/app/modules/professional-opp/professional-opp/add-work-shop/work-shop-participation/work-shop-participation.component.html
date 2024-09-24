@@ -1,0 +1,349 @@
+<div class="form-wrapper">
+  <form
+    class="row text-start"
+    [formGroup]="participationDataForm"
+    (ngSubmit)="participationDataSend()"
+  >
+    <div class="my-3 col-12 participatoionType row">
+      <label for="participatoionType" class="form-label mb-2 col-12"
+        >عدد ايام الفرصة
+      </label>
+      <div class="mb-3 col-6">
+        <select
+          (change)="clearOfflineValue(); recieveFromTime()"
+          class="form-select"
+          name="oppDaysNumber"
+          id="participatoionType"
+          formControlName="participatoionType"
+          [class.is-invalid]="
+            participatoionType?.invalid &&
+            participatoionType?.touched &&
+            participatoionType?.value == ''
+          "
+          [class.is-valid]="
+            participatoionType?.valid && participatoionType?.value != ''
+          "
+        >
+          <option value="">اختر</option>
+          <option
+            value="{{ option }}"
+            *ngFor="let option of participatoionTypeList; let i = index"
+          >
+            {{ option }}
+          </option>
+        </select>
+      </div>
+      <small
+        *ngIf="participatoionType?.errors?.['required'] && participatoionType?.touched && participatoionType?.value == ''"
+        id=""
+        class="form-text text-danger mt-1"
+        >{{ "ValidationMsgs.mandatory" | translate }}</small
+      >
+    </div>
+    <ng-container
+      *ngIf="participatoionType?.value == participatoionTypeList[1]"
+      formGroupName="online"
+    >
+      <div class="my-3 card px-0 col-6" *ngIf="sessionNum >= '1'">
+        <div class="card-header w-100">الفترة الاولى</div>
+        <div class="card-body px-3">
+          <div class="day col-12">
+            <p>اليوم :</p>
+            <p>
+              <strong>{{ sessionOne.day }}</strong>
+            </p>
+          </div>
+          <div class="timeFrom col-6">
+            <p>المدة(من)</p>
+            <p>
+              <strong>{{ sessionOne.timeFrom.time }}</strong>
+            </p>
+          </div>
+          <div class="timeTo col-6">
+            <p>المدة(إلى)</p>
+            <p>
+              <strong>{{ sessionOne.timeTo.time }}</strong>
+            </p>
+          </div>
+          <div class="my-3 col-12 meetingOneUrl">
+            <label for="participatoionType" class="form-label mb-2"
+              >رابط الموقع
+            </label>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="meetingOneUrl"
+                name="meetingOneUrl"
+                id="meetingOneUrl"
+                [class.is-invalid]="
+                  meetingOneUrl?.invalid && meetingOneUrl?.touched
+                "
+                [class.is-valid]="meetingOneUrl?.valid"
+              />
+            </div>
+            <div
+              [hidden]="meetingOneUrl?.valid || meetingOneUrl?.untouched"
+              class="row"
+            >
+              <small
+                *ngIf="meetingOneUrl?.errors?.['required']"
+                id=""
+                class="form-text text-danger mt-1"
+                >{{ "ValidationMsgs.mandatory" | translate }}</small
+              >
+              <small
+                *ngIf="meetingOneUrl?.errors?.['pattern']"
+                id=""
+                class="form-text text-danger mt-1"
+                >{{ "ValidationMsgs.url" | translate }}</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="my-3 card px-0 col-6" *ngIf="sessionNum >= '2'">
+        <div class="card-header w-100">الفترة الثانية</div>
+        <div class="card-body px-3">
+          <div class="day col-12">
+            <p>اليوم :</p>
+            <p>
+              <strong>{{ sessionTwo.day }}</strong>
+            </p>
+          </div>
+          <div class="timeFrom col-6">
+            <p>المدة(من)</p>
+            <p>
+              <strong>{{ sessionTwo.timeFrom.time }}</strong>
+            </p>
+          </div>
+          <div class="timeTo col-6">
+            <p>المدة(إلى)</p>
+            <p>
+              <strong>{{ sessionTwo.timeTo.time }}</strong>
+            </p>
+          </div>
+          <div class="my-3 col-12 meetingTwoUrl">
+            <label for="participatoionType" class="form-label mb-2"
+              >رابط الموقع
+            </label>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="meetingTwoUrl"
+                name="meetingTwoUrl"
+                id="meetingTwoUrl"
+                [class.is-invalid]="
+                  meetingTwoUrl?.invalid && meetingTwoUrl?.touched
+                "
+                [class.is-valid]="meetingTwoUrl?.valid"
+              />
+            </div>
+            <div
+              [hidden]="meetingTwoUrl?.valid || meetingTwoUrl?.untouched"
+              class="row"
+            >
+              <small
+                *ngIf="meetingTwoUrl?.errors?.['required']"
+                id=""
+                class="form-text text-danger mt-1"
+                >{{ "ValidationMsgs.mandatory" | translate }}</small
+              >
+              <small
+                *ngIf="meetingTwoUrl?.errors?.['pattern']"
+                id=""
+                class="form-text text-danger mt-1"
+                >{{ "ValidationMsgs.url" | translate }}</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="my-3 card px-0 col-6" *ngIf="sessionNum == '3'">
+        <div class="card-header w-100">الفترة الثالثة</div>
+        <div class="card-body px-3">
+          <div class="day col-12">
+            <p>اليوم :</p>
+            <p>
+              <strong>{{ sessionThree.day }}</strong>
+            </p>
+          </div>
+          <div class="timeFrom col-6">
+            <p>المدة(من)</p>
+            <p>
+              <strong>{{ sessionThree.timeFrom.time }}</strong>
+            </p>
+          </div>
+          <div class="timeTo col-6">
+            <p>المدة(إلى)</p>
+            <p>
+              <strong>{{ sessionThree.timeTo.time }}</strong>
+            </p>
+          </div>
+          <div class="my-3 col-12 meetingThreeUrl">
+            <label for="participatoionType" class="form-label mb-2"
+              >رابط الموقع
+            </label>
+            <div class="mb-3">
+              <input
+                type="text"
+                class="form-control"
+                formControlName="meetingThreeUrl"
+                name="meetingThreeUrl"
+                id="meetingThreeUrl"
+                [class.is-invalid]="
+                  meetingThreeUrl?.invalid && meetingThreeUrl?.touched
+                "
+                [class.is-valid]="meetingThreeUrl?.valid"
+              />
+            </div>
+            <div
+              [hidden]="meetingThreeUrl?.valid || meetingThreeUrl?.untouched"
+              class="row"
+            >
+              <small
+                *ngIf="meetingThreeUrl?.errors?.['required']"
+                id=""
+                class="form-text text-danger mt-1"
+                >{{ "ValidationMsgs.mandatory" | translate }}</small
+              >
+              <small
+                *ngIf="meetingThreeUrl?.errors?.['pattern']"
+                id=""
+                class="form-text text-danger mt-1"
+                >{{ "ValidationMsgs.url" | translate }}</small
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+    <ng-container
+      *ngIf="participatoionType?.value == participatoionTypeList[0]"
+      formGroupName="offline"
+    >
+      <div class="my-3 col-6 area">
+        <label for="area" class="form-label mb-2">المنطقة</label>
+        <div class="mb-3">
+          <select
+            class="form-select"
+            name="oppDaysNumber"
+            id="area"
+            formControlName="area"
+            [class.is-invalid]="
+              area?.invalid && area?.touched && area?.value == ''
+            "
+            [class.is-valid]="area?.valid && area?.value != ''"
+          >
+            <option value="">اختر</option>
+            <option
+              value="{{ option }}"
+              *ngFor="let option of areaList; let i = index"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+        <small
+          *ngIf="area?.errors?.['required'] && area?.touched && area?.value == ''"
+          id=""
+          class="form-text text-danger mt-1"
+          >{{ "ValidationMsgs.mandatory" | translate }}</small
+        >
+      </div>
+      <div class="my-3 col-6 city">
+        <label for="city" class="form-label mb-2">المدينة</label>
+        <div class="mb-3">
+          <select
+            class="form-select"
+            name="oppDaysNumber"
+            id="city"
+            formControlName="city"
+            [class.is-invalid]="
+              city?.invalid && city?.touched && city?.value == ''
+            "
+            [class.is-valid]="city?.valid && city?.value != ''"
+          >
+            <option value="">اختر</option>
+            <option
+              value="{{ option }}"
+              *ngFor="let option of cityList; let i = index"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+        <small
+          *ngIf="city?.errors?.['required'] && city?.touched && city?.value == ''"
+          id=""
+          class="form-text text-danger mt-1"
+          >{{ "ValidationMsgs.mandatory" | translate }}</small
+        >
+      </div>
+      <div class="my-3 col-6 locationUrl">
+        <label for="participatoionType" class="form-label mb-2"
+          >رابط الموقع
+        </label>
+        <div class="mb-3">
+          <input
+            type="text"
+            class="form-control"
+            formControlName="locationUrl"
+            name="locationUrl"
+            id="locationUrl"
+            [class.is-invalid]="locationUrl?.invalid && locationUrl?.touched"
+            [class.is-valid]="locationUrl?.valid"
+          />
+        </div>
+        <div
+          [hidden]="locationUrl?.valid || locationUrl?.untouched"
+          class="row"
+        >
+          <small
+            *ngIf="locationUrl?.errors?.['required']"
+            id=""
+            class="form-text text-danger mt-1"
+            >{{ "ValidationMsgs.mandatory" | translate }}</small
+          >
+          <small
+            *ngIf="locationUrl?.errors?.['pattern']"
+            id=""
+            class="form-text text-danger mt-1"
+            >{{ "ValidationMsgs.url" | translate }}</small
+          >
+        </div>
+      </div>
+    </ng-container>
+  </form>
+  {{ participationDataForm.value | json }}
+  <!-- ================================================== -->
+  <div class="card-footer border-0 row">
+    <div class="row col-10">
+      <button
+        type=""
+        (click)="prevStep()"
+        class="btn col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        السابق
+      </button>
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#cancelModal"
+        class="btn btn-danger col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        إلغاء
+      </button>
+    </div>
+
+    <div class="col-2">
+      <button
+        type="submit"
+        (click)="printForm(); nextStep(); removeClassesinParent()"
+        class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+      >
+        التالى
+      </button>
+    </div>
+  </div>
+</div>

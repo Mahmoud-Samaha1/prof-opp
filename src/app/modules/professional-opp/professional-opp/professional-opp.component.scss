@@ -1,0 +1,28 @@
+.card {
+  .card-body {
+    .search-bar {
+      // display: flex;
+
+      .search-input {
+        // display: flex;
+
+        input {
+          input {
+            background-color: #FAFAFA;
+            font-size: 1.2rem;
+            height: 2.5rem;
+            border-color: #E1E5E5;
+          }
+        }
+      }
+
+      .add {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+      }
+    }
+
+    .table-section {}
+  }
+}

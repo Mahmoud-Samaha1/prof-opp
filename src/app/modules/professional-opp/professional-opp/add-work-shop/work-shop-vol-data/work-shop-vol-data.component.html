@@ -1,0 +1,229 @@
+<div class="form-wrapper">
+  <div class="card-header bg-transparent border-0">
+    <div class="active-option">
+      <form class="row">
+        <div class="optionOne col-4 d-flex align-items-center">
+          <input
+            value="option1"
+            [(ngModel)]="selectedOption"
+            type="radio"
+            class=""
+            name="no"
+            id="noSelection"
+          />
+          <label for="noSelection" class="form-label ms-2 d-flex"
+            >بدون تحديد
+          </label>
+        </div>
+        <div class="optionTwo col-4 d-flex align-items-center">
+          <input
+            value="option2"
+            [(ngModel)]="selectedOption"
+            type="radio"
+            class=""
+            name="no"
+            id="volInvitation"
+          />
+          <label for="volInvitation" class="form-label ms-2">
+            دعوة المتطوعين للفرصة
+          </label>
+        </div>
+        <div class="optionThree col-4 d-flex align-items-center">
+          <input
+            value="option3"
+            [(ngModel)]="selectedOption"
+            type="radio"
+            class=""
+            name="no"
+            id="customizeOpp"
+          />
+          <label for="customizeOpp" class="form-label ms-2"
+            >تخصيص الفرصة لقسم معين
+          </label>
+        </div>
+      </form>
+    </div>
+  </div>
+  <form
+    class="row text-start"
+    [formGroup]="volDataForm"
+    (ngSubmit)="volDataSend()"
+  >
+    <div *ngIf="selectedOption == 'option1'" class="row">
+      <div class="my-3 col-6 gender">
+        <label for="gender" class="form-label mb-2">الجنس</label>
+        <div class="mb-3">
+          <select
+            class="form-select"
+            name="gender"
+            id="gender"
+            formControlName="gender"
+            [class.is-invalid]="
+              gender?.invalid && gender?.touched && gender?.value == ''
+            "
+            [class.is-valid]="gender?.valid && gender?.value != ''"
+          >
+            <option value="">اختر</option>
+            <option
+              value="{{ option }}"
+              *ngFor="let option of genderList; let i = index"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+        <small
+          id=""
+          class="form-text text-danger mt-1"
+          *ngIf="gender?.errors?.['required'] && gender?.touched && gender?.value == ''"
+          >{{ "ValidationMsgs.mandatory" | translate }}</small
+        >
+      </div>
+      <div class="my-3 col-6 num-of-seats">
+        <p>عدد المقاعد</p>
+        <p>1</p>
+      </div>
+    </div>
+    <div *ngIf="selectedOption == 'option2'">
+      <div class="my-3 col-6 vol-name">
+        <label for="volName" class="form-label mb-2">اسم المتطوع</label>
+        <div class="mb-3">
+          <select
+            class="form-select"
+            name="volName"
+            id="volName"
+            formControlName="volName"
+            [class.is-invalid]="
+              volName?.invalid && volName?.touched && volName?.value == ''
+            "
+            [class.is-valid]="volName?.valid && volName?.value != ''"
+          >
+            <option value="">اختر</option>
+            <option
+              value="{{ option }}"
+              *ngFor="let option of volNameList; let i = index"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+        <small
+          id=""
+          class="form-text text-danger mt-1"
+          *ngIf="gender?.errors?.['required'] && gender?.touched && gender?.value == ''"
+          >{{ "ValidationMsgs.mandatory" | translate }}</small
+        >
+      </div>
+      <div class="my-3 col-6 num-of-seats">
+        <p>عدد المقاعد</p>
+        <p>1</p>
+      </div>
+    </div>
+    <div *ngIf="selectedOption == 'option3'" class="row">
+      <div class="my-3 col-6 customizeOppForCustomSector">
+        <label for="customizeOppForCustomSector" class="form-label mb-2"
+          >تخصيص الفرصة لقسم معين
+        </label>
+        <div class="mb-3">
+          <select
+            class="form-select"
+            name="customizeOppForCustomSector"
+            id="customizeOppForCustomSector"
+            formControlName="customizeOppForCustomSector"
+            [class.is-invalid]="
+              customizeOppForCustomSector?.invalid &&
+              customizeOppForCustomSector?.touched &&
+              customizeOppForCustomSector?.value == ''
+            "
+            [class.is-valid]="
+              customizeOppForCustomSector?.valid &&
+              customizeOppForCustomSector?.value != ''
+            "
+          >
+            <option value="">اختر</option>
+            <option
+              value="{{ option }}"
+              *ngFor="
+                let option of customizeOppForCustomSectorList;
+                let i = index
+              "
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+        <small
+          id=""
+          class="form-text text-danger mt-1"
+          *ngIf="gender?.errors?.['required'] && gender?.touched && gender?.value == ''"
+          >{{ "ValidationMsgs.mandatory" | translate }}</small
+        >
+      </div>
+      <div class="my-3 col-6 num-of-seats">
+        <p>عدد المقاعد</p>
+        <p>1</p>
+      </div>
+      <div class="my-3 col-6 gender">
+        <label for="gender" class="form-label mb-2">الجنس</label>
+        <div class="mb-3">
+          <select
+            class="form-select"
+            name="gender"
+            id="gender"
+            formControlName="gender"
+            [class.is-invalid]="
+              gender?.invalid && gender?.touched && gender?.value == 'اختر'
+            "
+            [class.is-valid]="gender?.valid && gender?.value != 'اختر'"
+          >
+            <option value="اختر">اختر</option>
+            <option
+              value="{{ option }}"
+              *ngFor="let option of genderList; let i = index"
+            >
+              {{ option }}
+            </option>
+          </select>
+        </div>
+        <small
+          id=""
+          class="form-text text-danger mt-1"
+          *ngIf="gender?.errors?.['required'] && gender?.touched && gender?.value == ''"
+          >{{ "ValidationMsgs.mandatory" | translate }}</small
+        >
+      </div>
+    </div>
+
+    {{ volDataForm.value | json }}
+    <br />
+    {{ volDataForm.status | json }}
+  </form>
+  <div class="card-footer border-0 bg-transparent row">
+    <div class="row col-10">
+      <button
+        type="submit"
+        (click)="prevStep()"
+        class="btn col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        السابق
+      </button>
+      <button
+        data-bs-toggle="modal"
+        data-bs-target="#cancelModal"
+        class="btn btn-danger col-3 d-flex justify-content-center align-items-center fw-bold"
+      >
+        إلغاء
+      </button>
+    </div>
+
+    <div class="col-2">
+      <button
+        type="submit"
+        (click)="printForm(); nextStep(); removeClassesinParent()"
+        class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+      >
+        التالى
+      </button>
+    </div>
+  </div>
+</div>

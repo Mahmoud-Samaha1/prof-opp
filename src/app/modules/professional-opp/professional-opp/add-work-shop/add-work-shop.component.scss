@@ -1,0 +1,123 @@
+.wizard {
+  overflow: hidden;
+
+  ul.wizard-steps-header {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: fit-content;
+
+    &::after {
+      content: "";
+      width: 2px;
+      height: calc(100% - 2rem);
+      right: 2rem;
+      background: #e1e1e1;
+      position: absolute;
+      z-index: -1;
+
+    }
+
+    li {
+      display: flex;
+      align-items: baseline;
+      margin-bottom: 2rem;
+
+      .circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        // color: white;
+        width: 40px;
+        height: 40px;
+        border: 1px solid gray;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -ms-border-radius: 50%;
+        -o-border-radius: 50%;
+        background-color: rgb(255, 255, 255);
+
+        span {}
+      }
+
+      h5 {
+        margin-inline-start: 1rem;
+      }
+    }
+  }
+
+  .wizard-content {
+    .card {
+      .card-header {}
+
+      .card-body {
+        .wizard-step {
+          position: absolute;
+          height: fit-content;
+          width: 100%;
+          top: 0px
+        }
+
+        .active-step {
+          position: relative;
+          transform: translate(0);
+          -webkit-transform: translate(0);
+          -moz-transform: translate(0);
+          -ms-transform: translate(0);
+          -o-transform: translate(0);
+
+        }
+
+        .next-step,
+        .prev-step {
+          transform: translate(-150%);
+          -webkit-transform: translate(-150%);
+          -moz-transform: translate(-150%);
+          -ms-transform: translate(-150%);
+          -o-transform: translate(-150%);
+        }
+      }
+
+      .card-footer {}
+    }
+  }
+
+}
+
+
+// ========================
+// active & prev header step
+
+.prev-header-step .circle {
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+
+  &::after {
+    background-color: #35aa87 !important;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    position: absolute;
+    content: '\f00c';
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+  }
+}
+
+.active-header-step .circle {
+  background-color: #0560c8 !important;
+  color: white;
+  border: none !important;
+}
