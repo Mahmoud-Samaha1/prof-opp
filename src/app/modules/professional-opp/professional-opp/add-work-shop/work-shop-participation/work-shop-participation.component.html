@@ -339,10 +339,12 @@
     <div class="col-2">
       <button
         type="submit"
-        (click)="printForm(); nextStep(); removeClassesinParent()"
+        data-bs-toggle="modal"
+        data-bs-target="#confirmAddOppModal"
         class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+        [disabled]="participationDataForm.invalid"
       >
-        التالى
+        حفظ
       </button>
     </div>
   </div>

@@ -221,6 +221,7 @@
         type="submit"
         (click)="printForm(); nextStep(); removeClassesinParent()"
         class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+        [disabled]="volDataForm.invalid"
       >
         التالى
       </button>

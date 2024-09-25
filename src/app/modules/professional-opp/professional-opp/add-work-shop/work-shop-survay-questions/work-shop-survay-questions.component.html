@@ -222,7 +222,7 @@
 
   <!-- ====================================== -->
   <div class="card-footer border-0 row">
-    <div class="row col-10">
+    <div class="row col-8">
       <button
         type="submit"
         (click)="prevStep()"
@@ -243,7 +243,17 @@
       <button
         type="submit"
         (click)="printForm(); nextStep(); removeClassesinParent()"
+        class="btn btn-outline-success d-flex justify-content-center align-items-center fw-bold"
+      >
+        التخطى
+      </button>
+    </div>
+    <div class="col-2">
+      <button
+        type="submit"
+        (click)="printForm(); nextStep(); removeClassesinParent()"
         class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+        [disabled]="survayQuestionsDataForm.invalid"
       >
         التالى
       </button>

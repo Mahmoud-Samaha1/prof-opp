@@ -19,6 +19,7 @@ export class WorkShopBeneficiaryDataComponent implements OnInit {
   // beneficiaryTypeList: string[] = ['الأفراد', 'الجهات', 'كلاهما'];
   beneficiaryTypeList: string[] = ['ENTTY', 'INVDL', 'كلاهما'];
   genderList: string[] = ['MALGT', 'FELGT', 'كلاهما'];
+  // genderList: string[] = ['ذكر', 'انثى', 'كلاهما'];
   // selectedFile: File | null = null;
   selectedFile: File | null = null;
   base64File: any | ArrayBuffer | null = null;

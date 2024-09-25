@@ -4,12 +4,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CancelModalComponent } from './sharedComponents/cancel-modal/cancel-modal.component';
 import { RouterModule, Routes } from '@angular/router';
+import { ConfirmAddOppComponent } from './sharedComponents/confirm-add-opp/confirm-add-opp.component';
 
 
 
 @NgModule({
   declarations: [
-    CancelModalComponent
+    CancelModalComponent,
+    ConfirmAddOppComponent
   ],
   imports: [
     CommonModule,
@@ -20,7 +22,8 @@ import { RouterModule, Routes } from '@angular/router';
 
   ],
   exports: [
-    CancelModalComponent
+    CancelModalComponent,
+    ConfirmAddOppComponent
   ]
 })
 export class SharedModule { }

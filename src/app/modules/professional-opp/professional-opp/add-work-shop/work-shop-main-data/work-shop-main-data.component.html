@@ -207,6 +207,7 @@
         type="submit"
         (click)="printForm(); nextStep(); removeClassesinParent()"
         class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+        [disabled]="wsMainDataForm.invalid"
       >
         التالى
       </button>

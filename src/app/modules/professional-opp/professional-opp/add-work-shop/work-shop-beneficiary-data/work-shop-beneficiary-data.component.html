@@ -78,9 +78,7 @@
           id="yesPrintCertificate"
           [value]="true"
         />
-        <label for="yesPrintCertificate" class="form-label m-2">
-          {{ yes }}</label
-        >
+        <label for="yesPrintCertificate" class="form-label m-2"> نعم</label>
         <input
           type="radio"
           class="ms-3"
@@ -89,7 +87,7 @@
           id="noPrintCertificate"
           [value]="false"
         />
-        <label for="noPrintCertificate" class="form-label m-2">{{ no }}</label>
+        <label for="noPrintCertificate" class="form-label m-2">لا</label>
       </div>
     </div>
     <div class="my-3 row col-6 uploadProfile">
@@ -181,6 +179,7 @@
           removeClassesinParent();
           beneficiaryDataSend()
         "
+        [disabled]="workShopBeneficiaryDataForm.invalid"
         class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
       >
         التالى
