@@ -17,6 +17,7 @@
           class="form-select"
           name="oppDaysNumber"
           id="oppDaysNumber"
+          (change)="addSessions()"
           formControlName="oppDaysNumber"
           [class.is-invalid]="
             oppDaysNumber?.invalid &&
@@ -46,12 +47,13 @@
         [formGroupName]="i"
         class="row position-relative questionForm mt-3"
       >
+        <!-- sessionOne -->
         <div
           *ngIf="oppDaysNumber?.value >= 1"
           formGroupName="sessionOne"
           class="my-3 col-12 row sessionOne"
         >
-          <div class="my-3 col-4 sessionOneDay">
+          <div class="my-3 col-md-4 col-12 sessionOneDay">
             <div class="mb-3">
               <label for="day" class="form-label mb-2">اليوم </label>
               <input
@@ -79,7 +81,7 @@
             >
           </div>
           <div
-            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            class="my-3 col-md-4 col-12 d-flex align-items-end timeFrom row p-0 ms-1"
             formGroupName="timeFrom"
           >
             <label for="" class="form-label mb-2">المدة(من)</label>
@@ -117,7 +119,7 @@
             </div>
           </div>
           <div
-            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            class="my-3 col-md-4 col-12 d-flex align-items-end timeFrom row p-0 ms-1"
             formGroupName="timeTo"
           >
             <label for="" class="form-label mb-2">المدة(إلى)</label>
@@ -155,6 +157,7 @@
             </div>
           </div>
           <p
+            class="text-danger"
             *ngIf="
               isSessionOneMoreThreeHours &&
               sessionOneTimeFromAmOrPm.value != '' &&
@@ -189,13 +192,13 @@
             يجب ان تكون قيمة المدة(إلى) اكبر من المدة(من)
           </p>
         </div>
-
+        <!-- sessionTwo -->
         <div
           *ngIf="oppDaysNumber?.value >= 2"
           formGroupName="sessionTwo"
           class="my-3 col-12 row sessionTwo"
         >
-          <div class="my-3 col-4 sessionTwoDay">
+          <div class="my-3 col-md-4 col-12 sessionTwoDay">
             <div class="mb-3">
               <label for="day" class="form-label mb-2">اليوم </label>
               <input
@@ -223,7 +226,7 @@
             >
           </div>
           <div
-            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            class="my-3 col-md-4 col-12 d-flex align-items-end timeFrom row p-0 ms-1"
             formGroupName="timeFrom"
           >
             <label for="" class="form-label mb-2">المدة(من)</label>
@@ -261,7 +264,7 @@
             </div>
           </div>
           <div
-            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            class="my-3 col-md-4 col-12 d-flex align-items-end timeFrom row p-0 ms-1"
             formGroupName="timeTo"
           >
             <label for="" class="form-label mb-2">المدة(إلى)</label>
@@ -333,13 +336,13 @@
             يجب ان تكون قيمة المدة(إلى) اكبر من المدة(من)
           </p>
         </div>
-
+        <!-- sessionThree -->
         <div
           *ngIf="oppDaysNumber?.value == 3"
           formGroupName="sessionThree"
           class="my-3 col-12 row sessionOne"
         >
-          <div class="my-3 col-4 sessionThreeDay">
+          <div class="my-3 col-md-4 col-12 sessionThreeDay">
             <div class="mb-3">
               <label for="day" class="form-label mb-2">اليوم </label>
               <input
@@ -367,7 +370,7 @@
             >
           </div>
           <div
-            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            class="my-3 col-md-4 col-12 d-flex align-items-end timeFrom row p-0 ms-1"
             formGroupName="timeFrom"
           >
             <label for="" class="form-label mb-2">المدة(من)</label>
@@ -405,7 +408,7 @@
             </div>
           </div>
           <div
-            class="my-3 col-4 d-flex align-items-end timeFrom row p-0 ms-1"
+            class="my-3 col-md-4 col-12 d-flex align-items-end timeFrom row p-0 ms-1"
             formGroupName="timeTo"
           >
             <label for="" class="form-label mb-2">المدة(إلى)</label>
@@ -481,7 +484,7 @@
     </div>
   </form>
 
-  {{ timeDataForm.value | json }}
+  <!-- {{ timeDataForm.value | json }} -->
 
   <!-- ====================================== -->
   <div class="card-footer border-0 row">

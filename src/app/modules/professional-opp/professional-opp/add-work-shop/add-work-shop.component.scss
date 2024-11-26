@@ -3,8 +3,6 @@
 
   ul.wizard-steps-header {
     list-style: none;
-    display: flex;
-    flex-direction: column;
     position: relative;
     height: fit-content;
 
@@ -17,18 +15,23 @@
       position: absolute;
       z-index: -1;
 
+
+
+      @media (max-width:767px) {
+        width: calc(100% - 5rem);
+        height: 2px;
+        right: 35px;
+        top: 23px;
+
+      }
     }
 
     li {
-      display: flex;
+
       align-items: baseline;
       margin-bottom: 2rem;
 
       .circle {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        // color: white;
         width: 40px;
         height: 40px;
         border: 1px solid gray;
@@ -42,8 +45,14 @@
         span {}
       }
 
-      h5 {
-        margin-inline-start: 1rem;
+      h6 {
+        margin-inline-start: .5rem;
+
+        @media (max-width:768px) {
+          font-size: .8rem;
+          margin-top: .2rem;
+          text-align: center;
+        }
       }
     }
   }

@@ -50,6 +50,10 @@ export class WorkShopTimeComponent implements OnInit {
     '09:30',
     '10:00',
     '10:30',
+    '11:00',
+    '11:30',
+    '12:00',
+    '12:30',
   ];
   constructor(private _formBuilder: FormBuilder,
     private _OnlineSessionsService: OnlineSessionsService
@@ -58,56 +62,7 @@ export class WorkShopTimeComponent implements OnInit {
       {
         oppDaysNumber: ['', [Validators.required]],
         sessions: this._formBuilder.array(
-          [this._formBuilder.group(
-            {
-              sessionOne: this._formBuilder.group({
-                day: ['', [Validators.required]],
-                timeFrom: this._formBuilder.group(
-                  {
-                    AmOrPm: ['', [Validators.required]],
-                    time: ['', [Validators.required]],
-                  }
-                ),
-                timeTo: this._formBuilder.group(
-                  {
-                    AmOrPm: ['', [Validators.required]],
-                    time: ['', [Validators.required]],
-                  }
-                )
-              }),
-              sessionTwo: this._formBuilder.group({
-                day: ['', [Validators.required]],
-                timeFrom: this._formBuilder.group(
-                  {
-                    AmOrPm: ['', [Validators.required]],
-                    time: ['', [Validators.required]],
-                  }
-                ),
-                timeTo: this._formBuilder.group(
-                  {
-                    AmOrPm: ['', [Validators.required]],
-                    time: ['', [Validators.required]],
-                  }
-                )
-              }),
-              sessionThree: this._formBuilder.group({
-                day: ['', [Validators.required]],
-                timeFrom: this._formBuilder.group(
-                  {
-                    AmOrPm: ['', [Validators.required]],
-                    time: ['', [Validators.required]],
-                  }
-                ),
-                timeTo: this._formBuilder.group(
-                  {
-                    AmOrPm: ['', [Validators.required]],
-                    time: ['', [Validators.required]],
-                  }
-                )
-              }),
-            }
-          )
-          ]
+          []
         ),
 
       }
@@ -242,14 +197,124 @@ export class WorkShopTimeComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  addSessions() {
+    if
+      (this.oppDaysNumber?.value == this.oppDaysNumberList[0]) {
+      this.sessions.clear();
+      this.sessions.push(this._formBuilder.group(
+        {
+          sessionOne: this._formBuilder.group({
+            day: ['', [Validators.required]],
+            timeFrom: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            ),
+            timeTo: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            )
+          })
+        }))
+    } else if
+      (this.oppDaysNumber?.value == this.oppDaysNumberList[1]) {
+      this.sessions.clear();
+      this.sessions.push(this._formBuilder.group(
+        {
+          sessionOne: this._formBuilder.group({
+            day: ['', [Validators.required]],
+            timeFrom: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            ),
+            timeTo: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            )
+          }),
+          sessionTwo: this._formBuilder.group({
+            day: ['', [Validators.required]],
+            timeFrom: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            ),
+            timeTo: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            )
+          })
+        }))
+    } else {
+      this.sessions.clear();
+      this.sessions.push(this._formBuilder.group(
+        {
+          sessionOne: this._formBuilder.group({
+            day: ['', [Validators.required]],
+            timeFrom: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            ),
+            timeTo: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            )
+          }),
+          sessionTwo: this._formBuilder.group({
+            day: ['', [Validators.required]],
+            timeFrom: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            ),
+            timeTo: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            )
+          }),
+          sessionThree: this._formBuilder.group({
+            day: ['', [Validators.required]],
+            timeFrom: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            ),
+            timeTo: this._formBuilder.group(
+              {
+                AmOrPm: ['', [Validators.required]],
+                time: ['', [Validators.required]],
+              }
+            )
+          })
+        }))
+    }
+  }
   sendDataToParticipation() {
-    this._OnlineSessionsService.sendSessionsNumber(this.oppDaysNumber?.value)
-    this._OnlineSessionsService.sendSessionOne(this.sessionOne.value)
-    this._OnlineSessionsService.sendSessionTwo(this.sessionTwo.value)
-    this._OnlineSessionsService.sendSessionThree(this.sessionThree.value)
-    console.log(this.sessionOne.value)
-    console.log(this.sessionTwo.value)
-    console.log(this.sessionThree.value)
+    this._OnlineSessionsService?.sendSessionsNumber(this.oppDaysNumber?.value)
+    this._OnlineSessionsService?.sendSessionOne(this.sessionOne?.value)
+    this._OnlineSessionsService?.sendSessionTwo(this.sessionTwo?.value)
+    this._OnlineSessionsService?.sendSessionThree(this.sessionThree?.value)
+    console.log(this.sessionOne?.value)
+    console.log(this.sessionTwo?.value)
+    console.log(this.sessionThree?.value)
   }
   sessionOneHours() {
 

@@ -4,7 +4,7 @@
     [formGroup]="wsMainDataForm"
     (ngSubmit)="wsMainDataSend()"
   >
-    <div class="my-3 col-6 oppName">
+    <div class="my-3 col-md-6 col-12 oppName">
       <label for="" class="form-label mb-2">مسمى الفرصة</label>
       <input
         type="text"
@@ -22,7 +22,7 @@
         >{{ "ValidationMsgs.mandatory" | translate }}</small
       >
     </div>
-    <div class="my-3 col-6 monthlyEconomicValue">
+    <div class="my-3 col-md-6 col-12 monthlyEconomicValue">
       <label for="" class="form-label mb-2"
         >قيمة المهمة الشهرية (ريال سعودي)
       </label>
@@ -46,7 +46,7 @@
         >{{ "ValidationMsgs.mandatory" | translate }}</small
       >
     </div>
-    <div class="my-3 col-6 oppField">
+    <div class="my-3 col-md-6 col-12 oppField">
       <label for="" class="form-label mb-2">مجال الفرصة</label>
       <div class="mb-3">
         <select
@@ -76,7 +76,7 @@
       >
     </div>
 
-    <div class="my-3 col-6 isEnglishRequired">
+    <div class="my-3 col-md-6 col-12 isEnglishRequired">
       <p>هل تتطلب الفرصة إجادة للغة الأنجليزية؟</p>
       <div class="mb-3">
         <input
@@ -99,7 +99,7 @@
         <label for="no" class="form-label m-2">لا </label>
       </div>
     </div>
-    <div class="my-3 col-6 eventId">
+    <div class="my-3 col-md-6 col-12 eventId">
       <label for="" class="form-label mb-2">الفعاليات</label>
       <div class="mb-3">
         <select
@@ -128,7 +128,7 @@
         >{{ "ValidationMsgs.mandatory" | translate }}</small
       >
     </div>
-    <div class="my-3 col-6 initiativeId">
+    <div class="my-3 col-md-6 col-12 initiativeId">
       <label for="" class="form-label mb-2">المبادرات</label>
       <div class="mb-3">
         <select
@@ -181,9 +181,9 @@
         >{{ "ValidationMsgs.mandatory" | translate }}</small
       >
     </div>
-    {{ wsMainDataForm.value | json }}
-    <br />
-    {{ wsMainDataForm.status | json }}
+    <!-- {{ wsMainDataForm.value | json }} -->
+    <!-- <br /> -->
+    <!-- {{ wsMainDataForm.status | json }} -->
   </form>
   <div class="card-footer border-0 row">
     <div class="row col-10">

@@ -9,5 +9,24 @@
   .remove-btn {
     left: 30px;
     top: -20px;
+    width: 124px !important;
+    height: 35px;
+    font-size: .7rem;
+
+    @media (max-width:425px) {
+      left: 15px;
+      top: -12px;
+      width: 80px !important;
+      height: 40px;
+      font-size: 0.6rem;
+    }
+  }
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+
+  @media (max-width:425px) {
+    font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 16;
   }
 }

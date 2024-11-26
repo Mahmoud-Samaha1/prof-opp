@@ -15,12 +15,12 @@
         <button
           (click)="removeQuestion(i)"
           type="button"
-          class="btn remove-btn btn-danger w-25 position-absolute d-flex justify-content-center align-items-center"
+          class="btn remove-btn btn-danger position-absolute d-flex justify-content-center align-items-center"
         >
           <span class="material-symbols-outlined"> delete </span>
           حذف السؤال
         </button>
-        <div class="my-3 col-6 answerType">
+        <div class="my-3 col-md-6 col-12 answerType">
           <label for="answerType{{ i }}" class="form-label mb-2"
             >نوع الإجابات</label
           >
@@ -29,6 +29,7 @@
               class="form-select"
               name="answerType{{ i }}"
               id="answerType{{ i }}"
+              (change)="addMultiAnswers(i)"
               formControlName="answerType"
               [class.is-invalid]="
                 quistion.get('answerType')?.invalid &&
@@ -56,7 +57,7 @@
             >{{ "ValidationMsgs.mandatory" | translate }}</small
           >
         </div>
-        <div class="my-3 col-6 TheQuistion">
+        <div class="my-3 col-md-6 col-12 TheQuistion">
           <label for="TheQuistion{{ i }}" class="form-label mb-2">السؤال</label>
           <div class="mb-3">
             <input
@@ -218,11 +219,12 @@
     </div>
   </form>
 
-  {{ survayQuestionsDataForm.value | json }}
+  <!-- {{ survayQuestionsDataForm.value | json }} -->
+  <!-- {{ survayQuestionsDataForm.status | json }} -->
 
   <!-- ====================================== -->
   <div class="card-footer border-0 row">
-    <div class="row col-8">
+    <div class="row col-md-8 col-12 mb-1">
       <button
         type="submit"
         (click)="prevStep()"
@@ -239,16 +241,16 @@
       </button>
     </div>
 
-    <div class="col-2">
+    <div class="col-md-2 col-12 mb-1">
       <button
         type="submit"
-        (click)="printForm(); nextStep(); removeClassesinParent()"
+        (click)="printForm(); nextStep(); removeClassesinParent(); resetForm()"
         class="btn btn-outline-success d-flex justify-content-center align-items-center fw-bold"
       >
         التخطى
       </button>
     </div>
-    <div class="col-2">
+    <div class="col-md-2 col-12">
       <button
         type="submit"
         (click)="printForm(); nextStep(); removeClassesinParent()"

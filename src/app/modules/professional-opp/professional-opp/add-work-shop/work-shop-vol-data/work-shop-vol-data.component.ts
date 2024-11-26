@@ -1,6 +1,6 @@
 import { Location } from '@angular/common';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-work-shop-vol-data',
@@ -12,36 +12,60 @@ export class WorkShopVolDataComponent implements OnInit {
   @Output() removeClasses: EventEmitter<void> = new EventEmitter<void>();
   @Output() backToPrevStep: EventEmitter<void> = new EventEmitter<void>();
 
-  selectedOption: string = 'option1';
+
   volDataForm!: FormGroup;
+
   genderList: string[] = ['ذكر', 'انثى', 'كلاهما'];
   volNameList: string[] = ['متطوع 1', 'متطوع 2', 'متطوع 3'];
   customizeOppForCustomSectorList: string[] = ['قسم 1', 'قسم 2', 'قسم 3'];
 
 
   constructor(private _formBuilder: FormBuilder) {
-    this.volDataForm = this._formBuilder.group(
-      {
-        gender: ['', [Validators.required]],
-        volName: ['', [Validators.required]],
-        customizeOppForCustomSector: ['', [Validators.required]],
-        numOfSeats: ['1']
-      }
-    );
+    this.volDataForm = this._formBuilder.group({
+      volDataType: ['noSelection'],
+      volDataArray: this._formBuilder.array([])
+    });
+    this.addUnspecifiedForm()
   }
-  get gender() {
-    return this.volDataForm.get('gender');
+
+  get volDataArray(): FormArray {
+    return this.volDataForm?.get('volDataArray') as FormArray;
   }
-  get volName() {
-    return this.volDataForm.get('volName');
+  get volDataType() {
+    return this.volDataForm?.get('volDataType');
   }
-  get customizeOppForCustomSector() {
-    return this.volDataForm.get('customizeOppForCustomSector');
-  }
-  get numOfSeats() {
-    return this.volDataForm.get('numOfSeats');
-  }
+
+
   ngOnInit(): void {
+  }
+  addUnspecifiedForm() {
+    this.volDataArray.clear()
+    this.volDataType?.reset();
+    this.volDataType?.setValue('noSelection')
+    this.volDataArray.push(this._formBuilder.group({
+      numOfSeats: ['1'],
+      gender: ['', [Validators.required]],
+    }))
+  }
+  addInvitingVolforOpp() {
+    this.volDataArray.clear()
+    this.volDataType?.reset();
+    this.volDataType?.setValue('volInvitation')
+    this.volDataArray.push(this._formBuilder.group({
+      numOfSeats: ['1'],
+      volName: ['', [Validators.required]],
+    }))
+  }
+  addCustomizeOppToDepartmentForm() {
+
+    this.volDataArray.clear()
+    this.volDataType?.reset();
+    this.volDataType?.setValue('customizeOpp')
+    this.volDataArray.push(this._formBuilder.group({
+      numOfSeats: ['1'],
+      gender: ['', [Validators.required]],
+      customizeOppForCustomSector: ['', [Validators.required]],
+    }))
   }
   printForm() {
     console.log(this.volDataForm.value);

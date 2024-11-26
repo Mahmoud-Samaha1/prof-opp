@@ -5,7 +5,7 @@
     (ngSubmit)="beneficiaryDataSend()"
     enctype="multipart/form-data"
   >
-    <div class="my-3 col-6 beneficiaryType">
+    <div class="my-3 col-md-6 col-12 beneficiaryType">
       <label for="beneficiaryType" class="form-label mb-2">نوع المستفيد</label>
       <div class="mb-3">
         <select
@@ -38,7 +38,7 @@
         >{{ "ValidationMsgs.mandatory" | translate }}</small
       >
     </div>
-    <div class="my-3 col-6 gender">
+    <div class="my-3 col-md-6 col-12 gender">
       <label for="gender" class="form-label mb-2">الجنس</label>
       <div class="mb-3">
         <select
@@ -67,7 +67,7 @@
         >{{ "ValidationMsgs.mandatory" | translate }}</small
       >
     </div>
-    <div class="my-3 col-6 isPrintCertificate">
+    <div class="my-3 col-md-6 col-12 isPrintCertificate">
       <p>هل تريد طباعة شهادة حضور المستفيدين؟</p>
       <div class="mb-3">
         <input
@@ -90,7 +90,7 @@
         <label for="noPrintCertificate" class="form-label m-2">لا</label>
       </div>
     </div>
-    <div class="my-3 row col-6 uploadProfile">
+    <div class="my-3 row col-md-6 col-12 uploadProfile">
       <label for="" class="form-label mb-2 col-12">إضافة الملف التعريفى</label>
       <div class="mb-3 col-12 d-flex justify-content-center">
         <div class="position-relative w-100">
@@ -128,7 +128,7 @@
       </div>
     </div>
 
-    <div class="my-3 col-6 numOfSeats">
+    <div class="my-3 col-md-6 col-12 numOfSeats">
       <label for="" class="form-label mb-2">عدد المقاعد </label>
       <div class="mb-3">
         <input
@@ -150,7 +150,7 @@
     </div>
   </form>
 
-  {{ workShopBeneficiaryDataForm.value | json }}
+  <!-- {{ workShopBeneficiaryDataForm.value | json }} -->
 
   <div class="card-footer border-0 bg-transparent row">
     <div class="row col-10">
@@ -179,8 +179,8 @@
           removeClassesinParent();
           beneficiaryDataSend()
         "
-        [disabled]="workShopBeneficiaryDataForm.invalid"
         class="btn btn-primary d-flex justify-content-center align-items-center fw-bold"
+        [disabled]="workShopBeneficiaryDataForm.invalid"
       >
         التالى
       </button>

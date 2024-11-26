@@ -3,9 +3,10 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
-  // apiUrl: "http://pioneerseg.ddns.net:8001/"
-  apiUrl: "http://pioneers-server:8001/"
+  // production: false,
+  apiUrl: "http://pioneerseg.ddns.net:8001/"
+  // apiUrl: "http://pioneers-server:8001/"
+  // apiUrl: "http://193.122.70.232:8001"
 };
 
 /*

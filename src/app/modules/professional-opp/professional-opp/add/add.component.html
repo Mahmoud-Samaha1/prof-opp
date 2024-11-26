@@ -2,11 +2,11 @@
   <div class="card-header row">
     <h4>اختر نوع الفرصة الأحترافية المراد إضافتها</h4>
   </div>
-  <div class="card-body row justify-content-evenly">
+  <div class="card-body row flex-column flex-md-row justify-content-evenly">
     <div
       #oppType1
       id="opp-type-1"
-      class="opp-type col-3"
+      class="opp-type col-md-3 mb-1"
       (click)="chooseOpp1()"
     >
       <span class="material-symbols-outlined"> record_voice_over </span>
@@ -15,7 +15,7 @@
     <div
       #oppType2
       id="opp-type-2"
-      class="opp-type col-3"
+      class="opp-type col-md-3 mb-1"
       (click)="chooseOpp2()"
     >
       <span class="material-symbols-outlined"> campaign </span>
@@ -24,7 +24,7 @@
     <div
       #oppType3
       id="opp-type-3"
-      class="opp-type col-3"
+      class="opp-type col-md-3 mb-1"
       (click)="chooseOpp3()"
     >
       <span class="material-symbols-outlined"> record_voice_over </span>
@@ -34,7 +34,7 @@
   <div class="card-footer row justify-content-end">
     <button
       type="button"
-      class="col-2 btn btn-danger"
+      class="col-md-2 col-4 btn btn-danger"
       routerLink="professional-opp"
     >
       إلغاء
@@ -42,7 +42,7 @@
     <button
       #nextBtn
       type="button"
-      class="col-2 mx-3 btn btn-primary disabled"
+      class="col-md-2 col-4 mx-3 btn btn-primary disabled"
       data-bs-toggle="modal"
       data-bs-target="#addModal"
     >

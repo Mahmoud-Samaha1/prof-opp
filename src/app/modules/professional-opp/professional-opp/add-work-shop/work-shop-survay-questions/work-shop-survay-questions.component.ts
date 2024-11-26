@@ -21,12 +21,16 @@ export class WorkShopSurvayQuestionsComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder) {
     this.survayQuestionsDataForm = this._formBuilder.group(
       {
-        quistions: this._formBuilder.array([])
+        quistions: this._formBuilder.array([], [Validators.required])
       }
     )
   }
   get quistions() {
     return this.survayQuestionsDataForm.get('quistions') as FormArray;
+  }
+
+  get answerType() {
+    return this.quistions?.at(0).get('answerType');
   }
   answerDetails(i: number): FormArray {
     return this.quistions.at(i).
@@ -37,19 +41,30 @@ export class WorkShopSurvayQuestionsComponent implements OnInit {
     this.quistions.push(this._formBuilder.group({
       answerType: ['', [Validators.required]],
       TheQuistion: ['', [Validators.required]],
-      answerDetails: this._formBuilder.array(
-        [this._formBuilder.group({
-          answerOne: ['', [Validators.required]],
-          answerTwo: ['', [Validators.required]],
-          answerThree: ['', [Validators.required]],
-          answerFour: ['', [Validators.required]],
-        })
-        ])
+      answerDetails: this._formBuilder.array([])
     }));
   }
+  addMultiAnswers(index: any) {
+    if
+      (this.answerType?.value == this.quistionsTypeList[0]
+      || this.answerType?.value == this.quistionsTypeList[1]) {
+      this.answerDetails(index).push(this._formBuilder.group({
+        answerOne: ['', [Validators.required]],
+        answerTwo: ['', [Validators.required]],
+        answerThree: ['', [Validators.required]],
+        answerFour: ['', [Validators.required]],
+      }))
+    } else {
+      this.answerDetails(index).clear();
+    }
 
+  }
   removeQuestion(index: number): void {
     this.quistions.removeAt(index);
+  }
+  resetForm() {
+    this.survayQuestionsDataForm.reset();
+    this.quistions.clear();
   }
   ngOnInit(): void {
   }

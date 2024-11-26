@@ -1,5 +1,5 @@
 import { AfterContentInit, Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { OnlineSessionsService } from 'src/app/shared/services/online-sessions.service';
 
 @Component({
@@ -44,18 +44,8 @@ export class WorkShopParticipationComponent implements OnInit, AfterContentInit 
     this.participationDataForm = this._formBuilder.group(
       {
         participatoionType: ['', [Validators.required]],
-        offline: this._formBuilder.group(
-          {
-            area: ['', [Validators.required]],
-            city: ['', [Validators.required]],
-            locationUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
-          }
-        ),
-        online: this._formBuilder.group({
-          meetingOneUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
-          meetingTwoUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
-          meetingThreeUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
-        })
+        participatoionArray: this._formBuilder.array([])
+
       }
     );
     // this.recieveSessionNum();
@@ -63,31 +53,35 @@ export class WorkShopParticipationComponent implements OnInit, AfterContentInit 
   }
 
   get participatoionType() {
-    return this.participationDataForm.get('participatoionType');
+    return this.participationDataForm?.get('participatoionType');
   }
+  get participatoionArray() {
+    return this.participationDataForm?.get('participatoionArray') as FormArray;
+  }
+
   get offline(): FormGroup {
-    return this.participationDataForm.get('offline') as FormGroup;
+    return this.participatoionArray?.at(0)?.get('offline') as FormGroup;
   }
   get area() {
-    return this.offline.get('area');
+    return this.offline?.get('area');
   }
   get city() {
-    return this.offline.get('city');
+    return this.offline?.get('city');
   }
   get locationUrl() {
-    return this.offline.get('locationUrl');
+    return this.offline?.get('locationUrl');
   }
   get online(): FormGroup {
-    return this.participationDataForm.get('online') as FormGroup;
+    return this.participatoionArray?.at(0)?.get('online') as FormGroup;
   }
   get meetingOneUrl() {
-    return this.online.get('meetingOneUrl');
+    return this.online?.get('meetingOneUrl');
   }
   get meetingTwoUrl() {
-    return this.online.get('meetingTwoUrl');
+    return this.online?.get('meetingTwoUrl');
   }
   get meetingThreeUrl() {
-    return this.online.get('meetingThreeUrl');
+    return this.online?.get('meetingThreeUrl');
   }
   ngAfterContentInit(): void {
 
@@ -96,11 +90,66 @@ export class WorkShopParticipationComponent implements OnInit, AfterContentInit 
   ngOnInit(): void {
     this.recieveFromTime();
   }
+  addParticipation() {
+    if (this.participatoionType?.value == this.participatoionTypeList[0]) {
+      this.participatoionArray.clear()
+      this.participatoionArray.push(this._formBuilder.group({
+        offline: this._formBuilder.group(
+          {
+            area: ['', [Validators.required]],
+            city: ['', [Validators.required]],
+            locationUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
+          }
+        )
+      }))
+
+    } else if (
+      this.participatoionType?.value == this.participatoionTypeList[1]
+    ) {
+      this.participatoionArray.clear();
+      switch (this.sessionNum) {
+        case '1':
+          this.participatoionArray.push(this._formBuilder.group({
+            online:
+              this._formBuilder.group({
+                meetingOneUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
+              })
+          }))
+          break;
+        case '2':
+          this.participatoionArray.push(this._formBuilder.group({
+            online:
+              this._formBuilder.group({
+                meetingOneUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
+                meetingTwoUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
+
+              })
+          }))
+          break;
+        case '3':
+          this.participatoionArray.push(this._formBuilder.group({
+            online:
+              this._formBuilder.group({
+                meetingOneUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
+                meetingTwoUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
+                meetingThreeUrl: ['', [Validators.required, Validators.pattern('(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})([/\\w .-]*)*/?')]],
+
+              })
+          }))
+          break;
+
+        default:
+          break;
+      }
+    } else {
+      this.participatoionArray.clear();
+    }
+  }
   clearOfflineValue() {
     if (this.participatoionType?.value == this.participatoionTypeList[1] ||
       this.participatoionType?.value == ''
     ) {
-      this.offline.reset()
+      this.offline?.reset()
     }
   }
   recieveFromTime() {
