@@ -28,6 +28,7 @@
       </label>
       <div class="mb-3">
         <input
+          min="0"
           type="number"
           class="form-control"
           formControlName="monthlyEconomicValue"
@@ -193,13 +194,13 @@
       >
         السابق
       </button>
-      <button
+      <app-cancel-btn
         data-bs-toggle="modal"
         data-bs-target="#cancelModal"
         class="btn btn-danger col-3 d-flex justify-content-center align-items-center fw-bold"
       >
         إلغاء
-      </button>
+      </app-cancel-btn>
     </div>
 
     <div class="col-2">

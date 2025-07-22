@@ -5,13 +5,15 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CancelModalComponent } from './sharedComponents/cancel-modal/cancel-modal.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ConfirmAddOppComponent } from './sharedComponents/confirm-add-opp/confirm-add-opp.component';
+import { CancelBtnComponent } from './sharedComponents/cancet-btn/cancel-btn.component';
 
 
 
 @NgModule({
   declarations: [
     CancelModalComponent,
-    ConfirmAddOppComponent
+    ConfirmAddOppComponent,
+    CancelBtnComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +25,8 @@ import { ConfirmAddOppComponent } from './sharedComponents/confirm-add-opp/confi
   ],
   exports: [
     CancelModalComponent,
-    ConfirmAddOppComponent
+    ConfirmAddOppComponent,
+    CancelBtnComponent
   ]
 })
 export class SharedModule { }

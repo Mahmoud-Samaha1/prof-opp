@@ -11,12 +11,12 @@ const routes: Routes = [
   {
     path: 'professional-opp',
     children: [
+      // {
+      //   path: '',
+      //   component: ProfessionalOppComponent,
+      // },
       {
-        path: '',
-        component: ProfessionalOppComponent,
-      },
-      {
-        path: "add",
+        path: "",
         children: [
           {
             path: "",
